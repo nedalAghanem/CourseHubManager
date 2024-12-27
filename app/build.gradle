@@ -6,6 +6,10 @@ android {
     namespace 'com.example.coursehubmanager'
     compileSdk 34
 
+    buildFeatures {
+        viewBinding true
+    }
+
     defaultConfig {
         applicationId "com.example.coursehubmanager"
         minSdk 29
@@ -37,4 +41,7 @@ dependencies {
     testImplementation libs.junit
     androidTestImplementation libs.ext.junit
     androidTestImplementation libs.espresso.core
+
+    implementation("androidx.room:room-runtime:2.5.0")
+    annotationProcessor("androidx.room:room-compiler:2.5.0")
 }
