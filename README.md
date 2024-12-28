@@ -23,5 +23,5 @@ User friendly interface with Bottom Navigation and ViewPager.
 -----
 
 ## 📬 Contact
--Email: nedala447@gmail.com
+-Email: nedala447@gmail.com / 
 -GitHub: nedalAghanem
