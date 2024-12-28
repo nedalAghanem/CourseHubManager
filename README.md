@@ -5,11 +5,11 @@ CourseHub Manager: It is a mobile course management application. It allows users
 -----
 
 ## 🚀 Features 
--View a list of courses with details such as description, instructor and number of hours.
--Managing users and personal information.
--Watch course lessons using video links.
--Local database support using Room Database to store course and lesson data.
-User friendly interface with Bottom Navigation and ViewPager.
+- View a list of courses with details such as description, instructor and number of hours.
+- Managing users and personal information.
+- Watch course lessons using video links.
+- Local database support using Room Database to store course and lesson data.
+- User friendly interface with Bottom Navigation and ViewPager.
 
 -----
 
