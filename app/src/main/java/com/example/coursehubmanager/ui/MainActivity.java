@@ -15,9 +15,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Intent intent = getIntent();
-//        int userId = intent.getIntExtra("userId",-1);
-//        Toast.makeText(this, "Id : "+userId, Toast.LENGTH_SHORT).show();
+        Intent intent = getIntent();
+        int userId = intent.getIntExtra("userId",-1);
+        Toast.makeText(this, "Id : "+userId, Toast.LENGTH_SHORT).show();
 
     }
 }

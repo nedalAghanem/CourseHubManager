@@ -1,6 +1,7 @@
 package com.example.coursehubmanager.database.dao;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
@@ -9,7 +10,7 @@ import com.example.coursehubmanager.database.entity.Bookmarks;
 import com.example.coursehubmanager.database.entity.Courses;
 
 import java.util.List;
-
+@Dao
 public interface BookmarksDao {
 
     @Insert

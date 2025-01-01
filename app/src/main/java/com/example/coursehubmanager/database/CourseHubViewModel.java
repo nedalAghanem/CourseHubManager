@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.example.coursehubmanager.database.dao.EnrollmentsDao;
 import com.example.coursehubmanager.database.entity.Bookmarks;
 import com.example.coursehubmanager.database.entity.Courses;
+import com.example.coursehubmanager.database.entity.Enrollments;
 import com.example.coursehubmanager.database.entity.Lessons;
 import com.example.coursehubmanager.database.entity.Progress;
 import com.example.coursehubmanager.database.entity.Users;
@@ -91,7 +92,7 @@ public class CourseHubViewModel extends AndroidViewModel {
         return courseHubRepository.getAllLessons();
     }
 
-    public LiveData<List<Courses>> searchByLessonName(String lessonName){
+    public LiveData<List<Lessons>> searchByLessonName(String lessonName){
         return courseHubRepository.searchByLessonName(lessonName);
     }
 
@@ -119,19 +120,19 @@ public class CourseHubViewModel extends AndroidViewModel {
 
     /////*** EnrollmentsDao ***/////
 
-    public void insertEnrollment(EnrollmentsDao enrollment){
+    public void insertEnrollment(Enrollments enrollment){
         courseHubRepository.insertEnrollment(enrollment);
     }
 
-    public void deleteEnrollment(EnrollmentsDao enrollment){
+    public void deleteEnrollment(Enrollments enrollment){
         courseHubRepository.deleteEnrollment(enrollment);
     }
 
-    public LiveData<List<EnrollmentsDao>> getAllEnrollments(){
+    public LiveData<List<Enrollments>> getAllEnrollments(){
         return courseHubRepository.getAllEnrollments();
     }
 
-    public EnrollmentsDao getEnrollmentById(int enrollmentId){
+    public Enrollments getEnrollmentById(int enrollmentId){
         return courseHubRepository.getEnrollmentById(enrollmentId);
     }
 

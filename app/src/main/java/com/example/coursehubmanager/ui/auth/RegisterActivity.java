@@ -14,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.coursehubmanager.R;
 import com.example.coursehubmanager.database.CourseHubViewModel;
 import com.example.coursehubmanager.database.entity.Users;
+import com.example.coursehubmanager.databinding.ActivityLoginBinding;
 import com.example.coursehubmanager.databinding.ActivityRegisterBinding;
 import com.example.coursehubmanager.ui.MainActivity;
 
@@ -27,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        binding = ActivityRegisterBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         viewModel = new CourseHubViewModel(getApplication());

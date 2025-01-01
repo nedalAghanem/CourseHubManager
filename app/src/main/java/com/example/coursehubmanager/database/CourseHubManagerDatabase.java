@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.coursehubmanager.database.dao.BookmarksDao;
@@ -27,8 +28,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 
-@Database(entities = {Users.class, Users.class, Courses.class, Lessons.class, Bookmarks.class, Enrollments.class, Progress.class},
-        version = 1, exportSchema = false)
+@Database(entities = {Users.class, Courses.class, Lessons.class, Bookmarks.class, Enrollments.class, Progress.class},
+        version = 6, exportSchema = false)
 public abstract class CourseHubManagerDatabase extends RoomDatabase {
 
     public abstract UsersDao usersDao();
@@ -56,6 +57,7 @@ public abstract class CourseHubManagerDatabase extends RoomDatabase {
                                     CourseHubManagerDatabase.class, "course_hub_Manager_database")
                             .addCallback(sRoomDatabaseCallback)
                             .allowMainThreadQueries()
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }

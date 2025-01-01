@@ -75,9 +75,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_login_et"
-                android:drawableStart="@drawable/ic_home"
+                android:drawableStart="@drawable/ic_email"
                 android:drawablePadding="5dp"
                 android:hint="Email"
+                android:inputType="textEmailAddress"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -91,20 +92,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/shape_login_et"
-                android:drawableStart="@drawable/ic_home"
+                android:drawableStart="@drawable/ic_lock"
+                android:drawableEnd="@drawable/ic_visibility_off"
                 android:drawablePadding="5dp"
                 android:hint="Password"
                 android:textSize="20sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <RadioButton
-            android:id="@+id/login_radiobtn"
-            android:layout_width="match_parent"
+        <CheckBox
+            android:id="@+id/login_Checkbox"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:checked="true"
             android:text="Remember me"
-            android:textColor="@color/black"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:buttonTint="@color/green"
+            android:checked="false"/>
 
         <Button
             android:id="@+id/login_btn_login"

@@ -2,6 +2,7 @@ package com.example.coursehubmanager.database.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -16,6 +17,10 @@ public class Users {
     String password;
     String role;
 
+    public Users() {
+    }
+
+//    @Ignore
     public Users(int user_id, String first_name, String last_name, @NonNull String email, @NonNull String password, String role) {
         this.user_id = user_id;
         this.first_name = first_name;
@@ -25,6 +30,7 @@ public class Users {
         this.role = role;
     }
 
+//    @Ignore
     public Users(String first_name, String last_name, @NonNull String email, @NonNull String password, String role) {
         this.first_name = first_name;
         this.last_name = last_name;
@@ -38,6 +44,10 @@ public class Users {
         this.last_name = last_name;
         this.email = email;
         this.password = password;
+    }
+
+    public void setUser_id(int user_id) {
+        this.user_id = user_id;
     }
 
     public int getUser_id() {

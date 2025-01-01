@@ -1,25 +1,29 @@
 package com.example.coursehubmanager.database.dao;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
 
-import java.util.List;
+import com.example.coursehubmanager.database.entity.Enrollments;
 
+import java.util.List;
+@Dao
 public interface EnrollmentsDao {
+
     @Insert
-    void insertEnrollment(EnrollmentsDao enrollment);
+    void insertEnrollment(Enrollments enrollment);
 
     @Delete
-    void deleteEnrollment(EnrollmentsDao enrollment);
+    void deleteEnrollment(Enrollments enrollment);
 
     @Query("Select * From Enrollments order by enrollment_id asc")
-    LiveData<List<EnrollmentsDao>> getAllEnrollments();
+    LiveData<List<Enrollments>> getAllEnrollments();
 
     @Query("SELECT * FROM Enrollments WHERE enrollment_id = :enrollmentId")
-    EnrollmentsDao getEnrollmentById(int enrollmentId);
+    Enrollments getEnrollmentById(int enrollmentId);
 
 
 }

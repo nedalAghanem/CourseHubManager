@@ -30,6 +30,10 @@ public class Enrollments {
     private int course_id ;
     private Date enrollment_date ;
 
+
+    public Enrollments() {
+    }
+
     public Enrollments(int enrollment_id, int user_id, int course_id, Date enrollment_date) {
         this.enrollment_id = enrollment_id;
         this.user_id = user_id;
@@ -41,6 +45,10 @@ public class Enrollments {
         this.user_id = user_id;
         this.course_id = course_id;
         this.enrollment_date = enrollment_date;
+    }
+
+    public void setEnrollment_id(int enrollment_id) {
+        this.enrollment_id = enrollment_id;
     }
 
     public int getEnrollment_id() {

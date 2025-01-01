@@ -23,6 +23,9 @@ public class Bookmarks {
     @NonNull
     private int course_id;
 
+    public Bookmarks() {
+    }
+
     public Bookmarks(int bookmark_id, int user_id, int course_id) {
         this.bookmark_id = bookmark_id;
         this.user_id = user_id;
@@ -32,6 +35,10 @@ public class Bookmarks {
     public Bookmarks(int user_id, int course_id) {
         this.user_id = user_id;
         this.course_id = course_id;
+    }
+
+    public void setBookmark_id(int bookmark_id) {
+        this.bookmark_id = bookmark_id;
     }
 
     public int getBookmark_id() {

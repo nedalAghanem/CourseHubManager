@@ -1,4 +1,4 @@
-package com.example.coursehubmanager.ui;
+package com.example.coursehubmanager.ui.auth;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,15 +6,13 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.coursehubmanager.R;
-import com.example.coursehubmanager.ui.auth.LoginActivity;
-import com.example.coursehubmanager.ui.auth.RegisterActivity;
 
-public class SplashScreen extends AppCompatActivity {
+public class SplashActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash_screen);
+        setContentView(R.layout.activity_splash);
 
         Thread thread = new Thread(new Runnable() {
             @Override
@@ -31,6 +29,5 @@ public class SplashScreen extends AppCompatActivity {
                 startActivity(intent);
             }
         }); thread.start();
-
     }
 }
