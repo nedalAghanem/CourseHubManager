@@ -3,6 +3,7 @@ package com.example.coursehubmanager.database.entity;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity(foreignKeys = {@ForeignKey(entity = Courses.class,
@@ -19,6 +20,10 @@ public class Lessons {
     private String lesson_name ;
     private String youtube_url ;
 
+    public Lessons() {
+    }
+
+//    @Ignore
     public Lessons(int lesson_id, int course_id, String lesson_name, String youtube_url) {
         this.lesson_id = lesson_id;
         this.course_id = course_id;
@@ -30,6 +35,10 @@ public class Lessons {
         this.course_id = course_id;
         this.lesson_name = lesson_name;
         this.youtube_url = youtube_url;
+    }
+
+    public void setLesson_id(int lesson_id) {
+        this.lesson_id = lesson_id;
     }
 
     public int getLesson_id() {

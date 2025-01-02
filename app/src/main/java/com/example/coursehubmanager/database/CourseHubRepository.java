@@ -12,6 +12,7 @@ import com.example.coursehubmanager.database.dao.ProgressDao;
 import com.example.coursehubmanager.database.dao.UsersDao;
 import com.example.coursehubmanager.database.entity.Bookmarks;
 import com.example.coursehubmanager.database.entity.Courses;
+import com.example.coursehubmanager.database.entity.Enrollments;
 import com.example.coursehubmanager.database.entity.Lessons;
 import com.example.coursehubmanager.database.entity.Progress;
 import com.example.coursehubmanager.database.entity.Users;
@@ -150,7 +151,7 @@ public class CourseHubRepository {
         return lessonsDao.getAllLessons();
     }
 
-    public LiveData<List<Courses>> searchByLessonName(String lessonName){
+    public LiveData<List<Lessons>> searchByLessonName(String lessonName){
         return lessonsDao.searchByLessonName(lessonName);
     }
 
@@ -188,7 +189,7 @@ public class CourseHubRepository {
 
     /////*** EnrollmentsDao ***/////
 
-    public void insertEnrollment(EnrollmentsDao enrollment){
+    public void insertEnrollment(Enrollments enrollment){
         CourseHubManagerDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -197,7 +198,7 @@ public class CourseHubRepository {
         });
     }
 
-    public void deleteEnrollment(EnrollmentsDao enrollment){
+    public void deleteEnrollment(Enrollments enrollment){
         CourseHubManagerDatabase.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
@@ -206,11 +207,11 @@ public class CourseHubRepository {
         });
     }
 
-    public LiveData<List<EnrollmentsDao>> getAllEnrollments(){
+    public LiveData<List<Enrollments>> getAllEnrollments(){
         return enrollmentsDao.getAllEnrollments();
     }
 
-    public EnrollmentsDao getEnrollmentById(int enrollmentId){
+    public Enrollments getEnrollmentById(int enrollmentId){
         return enrollmentsDao.getEnrollmentById(enrollmentId);
     }
 

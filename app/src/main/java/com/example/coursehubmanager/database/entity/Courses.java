@@ -2,6 +2,7 @@ package com.example.coursehubmanager.database.entity;
 
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
@@ -28,6 +29,10 @@ public class Courses {
     private int lesson_count ;
     private Date course_date ;
 
+    public Courses() {
+    }
+
+//    @Ignore
     public Courses(int course_id, @NonNull String course_name, @NonNull String description, String instructor_name, @NonNull String image_url, double price, int registered_user, double total_houre, int lesson_count, Date course_date) {
         this.course_id = course_id;
         this.course_name = course_name;
@@ -41,6 +46,8 @@ public class Courses {
         this.course_date = course_date;
     }
 
+
+//    @Ignore
     public Courses(@NonNull String course_name, @NonNull String description, String instructor_name, @NonNull String image_url, double price, int registered_user, double total_houre, int lesson_count, Date course_date) {
         this.course_name = course_name;
         this.description = description;
@@ -60,6 +67,10 @@ public class Courses {
         this.price = price;
         this.total_houre = total_houre;
         this.course_date = course_date;
+    }
+
+    public void setCourse_id(int course_id) {
+        this.course_id = course_id;
     }
 
     public int getCourse_id() {

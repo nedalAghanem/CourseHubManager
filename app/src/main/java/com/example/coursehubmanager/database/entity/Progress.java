@@ -25,6 +25,9 @@ public class Progress {
     private int completed_lessons ;
     private int total_lessons ;
 
+    public Progress() {
+    }
+
     public Progress(int progres_id, int user_id, int course_id, int completed_lessons, int total_lessons) {
         this.progres_id = progres_id;
         this.user_id = user_id;
@@ -38,6 +41,10 @@ public class Progress {
         this.course_id = course_id;
         this.completed_lessons = completed_lessons;
         this.total_lessons = total_lessons;
+    }
+
+    public void setProgres_id(int progres_id) {
+        this.progres_id = progres_id;
     }
 
     public int getProgres_id() {

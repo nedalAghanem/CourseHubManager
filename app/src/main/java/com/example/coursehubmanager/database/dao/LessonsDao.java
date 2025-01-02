@@ -31,7 +31,7 @@ public interface LessonsDao {
     LiveData<List<Lessons>> getAllLessons();
 
     @Query("Select * From Lessons  Where lesson_name like '%' || :lessonName || '%'")
-    LiveData<List<Courses>> searchByLessonName(String lessonName);
+    LiveData<List<Lessons>> searchByLessonName(String lessonName);
 
     @Query("SELECT * FROM Lessons WHERE lesson_id = :lessonId")
     Lessons getLessonById(int lessonId);
