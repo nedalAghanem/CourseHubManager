@@ -33,6 +33,13 @@ public class Users {
         this.role = role;
     }
 
+    public Users(String first_name, String last_name, @NonNull String email, @NonNull String password) {
+        this.first_name = first_name;
+        this.last_name = last_name;
+        this.email = email;
+        this.password = password;
+    }
+
     public int getUser_id() {
         return user_id;
     }
