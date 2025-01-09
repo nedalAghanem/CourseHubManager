@@ -3,6 +3,7 @@ package com.example.coursehubmanager.database;
 import android.app.Application;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Query;
 
 import com.example.coursehubmanager.database.dao.BookmarksDao;
 import com.example.coursehubmanager.database.dao.CoursesDao;
@@ -116,6 +117,12 @@ public class CourseHubRepository {
 
     public LiveData<List<Courses>> searchByCourseName(String courseName){
         return coursesDao.searchByCourseName(courseName);
+    }
+    public LiveData<List<Courses>> getCoursesByCategory(String category){
+        return coursesDao.getCoursesByCategory(category);
+    }
+    public LiveData<List<String>> getCategories(){
+        return coursesDao.getCategories();
     }
 
     /////*** LessonsDao ***/////

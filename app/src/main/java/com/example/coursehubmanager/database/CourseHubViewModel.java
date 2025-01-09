@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
+import androidx.room.Query;
 
 import com.example.coursehubmanager.database.dao.EnrollmentsDao;
 import com.example.coursehubmanager.database.entity.Bookmarks;
@@ -74,6 +75,19 @@ public class CourseHubViewModel extends AndroidViewModel {
     public LiveData<List<Courses>> searchByCourseName(String courseName){
         return courseHubRepository.searchByCourseName(courseName);
     }
+
+    public LiveData<List<Courses>> getCoursesByCategory(String category){
+//        return courseHubRepository.getCoursesByCategory(category);
+        if (category.equals("All")) {
+            return courseHubRepository.getAllCourses();
+        } else {
+            return courseHubRepository.getCoursesByCategory(category);
+        }
+    }
+    public LiveData<List<String>> getCategories(){
+        return courseHubRepository.getCategories();
+    }
+    
     /////*** LessonsDao ***/////
 
     public void insertLesson(Lessons lesson){
@@ -99,6 +113,8 @@ public class CourseHubViewModel extends AndroidViewModel {
     public Lessons getLessonById(int lessonId){
         return courseHubRepository.getLessonById(lessonId);
     }
+
+
 
     /////*** BookmarksDao ***/////
 

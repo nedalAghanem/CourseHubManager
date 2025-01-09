@@ -28,12 +28,13 @@ public class Courses {
     private double total_houre ;
     private int lesson_count ;
     private Date course_date ;
+    private String category;
 
     public Courses() {
     }
 
 //    @Ignore
-    public Courses(int course_id, @NonNull String course_name, @NonNull String description, String instructor_name, @NonNull String image_url, double price, int registered_user, double total_houre, int lesson_count, Date course_date) {
+    public Courses(int course_id, @NonNull String course_name, @NonNull String description, String instructor_name, @NonNull String image_url, double price, int registered_user, double total_houre, int lesson_count, Date course_date, String category) {
         this.course_id = course_id;
         this.course_name = course_name;
         this.description = description;
@@ -44,11 +45,12 @@ public class Courses {
         this.total_houre = total_houre;
         this.lesson_count = lesson_count;
         this.course_date = course_date;
+        this.category = category;
     }
 
 
 //    @Ignore
-    public Courses(@NonNull String course_name, @NonNull String description, String instructor_name, @NonNull String image_url, double price, int registered_user, double total_houre, int lesson_count, Date course_date) {
+    public Courses(@NonNull String course_name, @NonNull String description, String instructor_name, @NonNull String image_url, double price, int registered_user, double total_houre, int lesson_count, Date course_date,String category) {
         this.course_name = course_name;
         this.description = description;
         this.instructor_name = instructor_name;
@@ -58,15 +60,17 @@ public class Courses {
         this.total_houre = total_houre;
         this.lesson_count = lesson_count;
         this.course_date = course_date;
+        this.category = category;
     }
 
-    public Courses(@NonNull String course_name, String instructor_name, @NonNull String image_url, double price, double total_houre, Date course_date) {
+    public Courses(@NonNull String course_name, String instructor_name, @NonNull String image_url, double price, double total_houre, Date course_date,String category) {
         this.course_name = course_name;
         this.instructor_name = instructor_name;
         this.image_url = image_url;
         this.price = price;
         this.total_houre = total_houre;
         this.course_date = course_date;
+        this.category = category;
     }
 
     public void setCourse_id(int course_id) {
@@ -150,5 +154,13 @@ public class Courses {
 
     public void setCourse_date(Date course_date) {
         this.course_date = course_date;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

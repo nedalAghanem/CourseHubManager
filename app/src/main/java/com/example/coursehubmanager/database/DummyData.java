@@ -11,13 +11,13 @@ public class DummyData {
     // to add fake Courses
     public static ArrayList<Courses> addCourses() {
         ArrayList<Courses> courses = new ArrayList<>();
-        courses.add(new Courses("Android Programming", "Learn Android development with Java and XML", "John Doe", "android_image_url", 100.0, 20, 50, 30, new Date()));
-        courses.add(new Courses("Photoshop Design", "Master the art of photo editing and design", "Jane Smith", "photoshop_image_url", 80.0, 15, 40, 25, new Date()));
-        courses.add(new Courses("English Language Basics", "Improve your English speaking and writing skills", "Emily Johnson", "english_image_url", 50.0, 30, 20, 15, new Date()));
-        courses.add(new Courses("Web Development", "Learn HTML, CSS, and JavaScript", "Michael Brown", "webdev_image_url", 120.0, 25, 60, 40, new Date()));
-        courses.add(new Courses("Digital Marketing", "Learn the basics of SEO and social media marketing", "Sophia Wilson", "marketing_image_url", 90.0, 18, 30, 20, new Date()));
-        courses.add(new Courses("Python Programming", "Learn Python from basics to advanced topics", "Chris Taylor", "python_image_url", 110.0, 22, 50, 35, new Date()));
-        courses.add(new Courses("Data Science", "Introduction to data analysis and machine learning", "Laura Davis", "datascience_image_url", 150.0, 12, 70, 50, new Date()));
+        courses.add(new Courses("Android Programming", "Learn Android development with Java and XML", "John Doe", "android_image_url", 100.0, 20, 50, 30, new Date(),"Programming"));
+        courses.add(new Courses("Photoshop Design", "Master the art of photo editing and design", "Jane Smith", "photoshop_image_url", 80.0, 15, 40, 25, new Date(),"Design"));
+        courses.add(new Courses("English Language Basics", "Improve your English speaking and writing skills", "Emily Johnson", "english_image_url", 50.0, 30, 20, 15, new Date(),"Languages"));
+        courses.add(new Courses("Web Development", "Learn HTML, CSS, and JavaScript", "Michael Brown", "webdev_image_url", 120.0, 25, 60, 40, new Date(),"Programming"));
+        courses.add(new Courses("Digital Marketing", "Learn the basics of SEO and social media marketing", "Sophia Wilson", "marketing_image_url", 90.0, 18, 30, 20, new Date(),"Design"));
+        courses.add(new Courses("Python Programming", "Learn Python from basics to advanced topics", "Chris Taylor", "python_image_url", 110.0, 22, 50, 35, new Date(),"Programming"));
+        courses.add(new Courses("Food Science", "Introduction to data analysis and machine learning", "Laura Davis", "datascience_image_url", 150.0, 12, 70, 50, new Date(),"Food"));
 
         return courses;
     }

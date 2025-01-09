@@ -12,6 +12,8 @@ import com.example.coursehubmanager.database.entity.Lessons;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+
 @Dao
 public interface CoursesDao {
 
@@ -35,6 +37,12 @@ public interface CoursesDao {
 
     @Query("Select * From Courses  Where course_name like '%' || :courseName || '%'")
     LiveData<List<Courses>> searchByCourseName(String courseName);
+
+    @Query("SELECT * FROM Courses WHERE category = :category")
+    LiveData<List<Courses>> getCoursesByCategory(String category);
+
+    @Query("Select  Courses.category from Courses")
+    LiveData<List<String>> getCategories();
 
 
 
