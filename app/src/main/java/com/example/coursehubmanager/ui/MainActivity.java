@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
                 }else if (item.getItemId() == R.id.item_my_courses){
                     addFragment(new MyCoursesFragment());
                 } else if (item.getItemId() == R.id.item_account) {
-                    addFragment(new AccountFragment());
+//                    addFragment(new AccountFragment());
+                    addFragment(AccountFragment.newInstance(userId));
                 }
                 return false;
             }

@@ -125,6 +125,14 @@ public class CourseHubRepository {
         return coursesDao.getCategories();
     }
 
+    public void updateUser(Users users){
+        usersDao.updateUser(users);
+    }
+
+    public String getEmailByUserId(int userId){
+        return usersDao.getEmailByUserId(userId);
+    }
+
     /////*** LessonsDao ***/////
 
     public void insertLesson(Lessons lesson){

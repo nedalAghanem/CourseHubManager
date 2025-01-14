@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.coursehubmanager.database.entity.Users;
 
@@ -15,6 +16,9 @@ public interface UsersDao {
 
     @Insert
     void insertUser(Users user);
+
+    @Update
+    void updateUser(Users user);
 
     @Delete
     void deleteUsers(Users user);
@@ -31,6 +35,9 @@ public interface UsersDao {
 
     @Query("SELECT * FROM Users WHERE Users.email = :email ")
     Users returnUserByEmail(String email);
+
+    @Query("Select  Users.email From Users Where user_id = :userId")
+    String getEmailByUserId(int userId);
 
 
 }

@@ -50,6 +50,14 @@ public class CourseHubViewModel extends AndroidViewModel {
         return courseHubRepository.returnUserByEmail(email);
     }
 
+    public void updateUser(Users users){
+        courseHubRepository.updateUser(users);
+    }
+
+    public String getEmailByUserId(int userId){
+        return courseHubRepository.getEmailByUserId(userId);
+    }
+
     /////*** CoursesDao ***/////
 
     public void insertCourses(Courses... course){
