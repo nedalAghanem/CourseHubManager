@@ -1,24 +1,20 @@
 package com.example.coursehubmanager.ui;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.coursehubmanager.R;
 import com.example.coursehubmanager.database.CourseHubViewModel;
-import com.example.coursehubmanager.database.DummyData;
 import com.example.coursehubmanager.database.entity.Courses;
 import com.example.coursehubmanager.databinding.CourseContentItemBinding;
 
@@ -26,13 +22,10 @@ import java.util.List;
 
 
 public class CourseCategoryFragment extends Fragment {
-    CourseHubViewModel viewModel ;
 
     private static final String ARG_CATEGORY = "category";
-
-    public CourseCategoryFragment() {
-        // Required empty public constructor
-    }
+    private RecyclerView recyclerView;
+    private CourseHubViewModel viewModel;
 
     public static CourseCategoryFragment newInstance(String category) {
         CourseCategoryFragment fragment = new CourseCategoryFragment();
@@ -42,74 +35,81 @@ public class CourseCategoryFragment extends Fragment {
         return fragment;
     }
 
-
-
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_course_category, container, false);
 
-        RecyclerView rv = view.findViewById(R.id.fragment_course_category_rv);
+        recyclerView = view.findViewById(R.id.fragment_course_category_rv);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        String category = getArguments().getString(ARG_CATEGORY);
         viewModel = new ViewModelProvider(this).get(CourseHubViewModel.class);
-        // قم بتحميل الكورسات بناءً على التصنيف
-        viewModel.getCoursesByCategory(category).observe(getViewLifecycleOwner(),
-                new Observer<List<Courses>>() {
-                    @Override
-                    public void onChanged(List<Courses> courses) {
-                        // عند تحديث البيانات يقوم بتحديث الكود
-                        CourseAdapter adapter = new CourseAdapter(courses, getContext());
-                        rv.setAdapter(adapter);
-                        rv.setLayoutManager(new GridLayoutManager(getContext(),2));
-                        rv.setHasFixedSize(true);
-                        adapter.notifyDataSetChanged();
-                    }
-                });
+        String category = getArguments().getString(ARG_CATEGORY, "all");
+
+        viewModel.getCoursesByCategory(category).observe(getViewLifecycleOwner(), courses -> {
+            if (courses != null) {
+                CourseAdapter adapter = new CourseAdapter(courses);
+                recyclerView.setAdapter(adapter);
+                recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+                recyclerView.setHasFixedSize(true);
+                adapter.notifyDataSetChanged();
+            } else {
+                Log.d("GetCourses", "No Courses: ");
+            }
+        });
+
         return view;
     }
 
-    class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder>{
-        List<Courses> coursesList;
-        Context context;
-        public CourseAdapter(List<Courses> coursesList, Context context) {
-            this.coursesList = coursesList;
-            this.context = context;
-            DummyData.addCourses();
+
+    public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
+
+        private final List<Courses> courses;
+
+        public CourseAdapter(List<Courses> courses) {
+            this.courses = courses;
         }
 
         @NonNull
         @Override
         public CourseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            return new CourseViewHolder(LayoutInflater.from(context)
-                    .inflate(R.layout.course_content_item, parent, false));
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_content_item, parent, false);
+            return new CourseViewHolder(view);
         }
 
         @Override
         public void onBindViewHolder(@NonNull CourseViewHolder holder, int position) {
-            Courses courses = coursesList.get(position);
-            holder.bind(courses);
+            Courses course = courses.get(position);
+            Log.d("GetCourses", courses.size() + "");
+            holder.bind(course);
         }
 
         @Override
         public int getItemCount() {
-            return coursesList.size();
+            return courses == null ? 0 : courses.size();
         }
 
-        class CourseViewHolder extends RecyclerView.ViewHolder{
+        public void updateCourses(List<Courses> newCourses) {
+            this.courses.clear();
+            this.courses.addAll(newCourses);
+            notifyDataSetChanged();
+        }
+
+        class CourseViewHolder extends RecyclerView.ViewHolder {
             CourseContentItemBinding binding;
             Courses courses;
+
             public CourseViewHolder(@NonNull View itemView) {
                 super(itemView);
                 binding = CourseContentItemBinding.bind(itemView);
             }
+
             public void bind(Courses courses) {
                 this.courses = courses;
                 binding.imageView.setImageResource(R.drawable.web_developer);
                 binding.courseItemTvCategory.setText(courses.getCategory());
                 binding.courseItemTvCourseName.setText(courses.getCourse_name());
                 binding.courseItemTvInstructorName.setText(courses.getInstructor_name());
-                binding.courseItemTvDate.setText(courses.getCourse_date()+"");
+                binding.courseItemTvDate.setText(courses.getCourse_date() + "");
                 binding.courseItemTvPrice.setText(courses.getPrice() + " $ ");
                 // to show just 40 Char from the description
                 String fullText = courses.getDescription();
@@ -119,5 +119,6 @@ public class CourseCategoryFragment extends Fragment {
             }
         }
     }
+
 
 }

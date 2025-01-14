@@ -85,12 +85,13 @@ public class CourseHubViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Courses>> getCoursesByCategory(String category){
-//        return courseHubRepository.getCoursesByCategory(category);
-        if (category.equals("All")) {
-            return courseHubRepository.getAllCourses();
-        } else {
-            return courseHubRepository.getCoursesByCategory(category);
-        }
+        return courseHubRepository.getCoursesByCategory(category);
+//        if (category.equals("All")) {
+//            return courseHubRepository.getAllCourses();
+//        } else {
+//            return courseHubRepository.getCoursesByCategory(category);
+//        }
+
     }
     public LiveData<List<String>> getCategories(){
         return courseHubRepository.getCategories();

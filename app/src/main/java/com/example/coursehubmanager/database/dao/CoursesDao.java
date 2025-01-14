@@ -38,10 +38,11 @@ public interface CoursesDao {
     @Query("Select * From Courses  Where course_name like '%' || :courseName || '%'")
     LiveData<List<Courses>> searchByCourseName(String courseName);
 
-    @Query("SELECT * FROM Courses WHERE category = :category")
+    @Query("SELECT * FROM Courses WHERE category = :category OR :category = 'all'")
     LiveData<List<Courses>> getCoursesByCategory(String category);
 
-    @Query("Select  Courses.category from Courses")
+    // DISTINCT  لعدم التكرار
+    @Query("Select  DISTINCT Courses.category from Courses")
     LiveData<List<String>> getCategories();
 
 
