@@ -64,6 +64,8 @@ public class CourseCategoryFragment extends Fragment {
     public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
 
         private final List<Courses> courses;
+        private int userId;
+        private OnCourseClickListener listener;
 
         public CourseAdapter(List<Courses> courses) {
             this.courses = courses;
@@ -81,7 +83,7 @@ public class CourseCategoryFragment extends Fragment {
             Courses course = courses.get(position);
             Log.d("GetCourses", courses.size() + "");
             holder.bind(course);
-        }
+            holder.itemView.setOnClickListener(v -> listener.onCourseClick(userId,course));        }
 
         @Override
         public int getItemCount() {
@@ -118,6 +120,9 @@ public class CourseCategoryFragment extends Fragment {
                 binding.courseItemTvDescription.setText(shortenedText);
             }
         }
+    }
+    public interface OnCourseClickListener {
+        void onCourseClick(int userId, Courses course);
     }
 
 

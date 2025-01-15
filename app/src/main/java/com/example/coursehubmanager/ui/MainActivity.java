@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.item_home){
-                    addFragment(new HomeFragment());
+                    addFragment(HomeFragment.newInstance(userId));
                 }else if (item.getItemId() == R.id.item_my_courses){
                     addFragment(new MyCoursesFragment());
                 } else if (item.getItemId() == R.id.item_account) {

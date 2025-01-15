@@ -67,7 +67,7 @@
                     android:textSize="24sp" />
 
                 <TextView
-                    android:id="@+id/textView4"
+                    android:id="@+id/show_course_btn_reservation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="12dp"
@@ -351,7 +351,7 @@
             </androidx.core.widget.NestedScrollView>
 
             <ImageView
-                android:id="@+id/show_course_iv_back"
+                android:id="@+id/show_course_btn_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -359,6 +359,16 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_menu_revert" />
+
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dp"
+                android:layout_marginEnd="7dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_bookmark" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

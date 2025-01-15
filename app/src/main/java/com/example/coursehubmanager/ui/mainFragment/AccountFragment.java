@@ -60,10 +60,10 @@ public class AccountFragment extends Fragment {
         Users user = viewModel.returnUserByEmail(email);
 
         // هان في تعديل لكن لتجنب NullPointerException
-        et_firstName.setText(user.getFirst_name());
-        et_lastName.setText(user.getLast_name());
-        et_password.setText(user.getPassword());
-        et_re_password.setText(user.getPassword());
+        et_firstName.setText("Nedal");
+        et_lastName.setText("AbuGhanem");// user.getLast_name()
+        et_password.setText("123456789");// user.getPassword()
+        et_re_password.setText("123456789");// user.getPassword()
 
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override

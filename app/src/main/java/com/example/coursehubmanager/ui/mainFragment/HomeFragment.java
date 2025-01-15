@@ -11,6 +11,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.coursehubmanager.R;
 import com.example.coursehubmanager.database.CourseHubViewModel;
@@ -29,9 +30,31 @@ public class HomeFragment extends Fragment {
     private CoursePagerAdapter pagerAdapter;
     private CourseHubViewModel viewModel;
 
+    private static final String ARG_USER_ID = "user_id";
+    private int userId;
+
+    public HomeFragment() {
+        // Required empty public constructor
+    }
+    public static AccountFragment newInstance(int userId) {
+        AccountFragment fragment = new AccountFragment();
+        Bundle args = new Bundle();
+        args.putInt(ARG_USER_ID, userId);
+        fragment.setArguments(args);
+        return fragment;
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            userId = getArguments().getInt(ARG_USER_ID,-1);
+        }
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        Toast.makeText(getContext(), "user id "+userId, Toast.LENGTH_SHORT).show();
 
         tabLayout = view.findViewById(R.id.fragment_home_tab_view);
         viewPager = view.findViewById(R.id.fragment_home_view_pager);
