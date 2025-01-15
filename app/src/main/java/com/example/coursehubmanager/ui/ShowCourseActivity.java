@@ -32,10 +32,9 @@ public class ShowCourseActivity extends AppCompatActivity {
         binding = ActivityShowCourseBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        userId = getIntent().getIntExtra("user_id", -1);
-        courseId = getIntent().getIntExtra("course_id", -1);
-        Toast.makeText(this, "userId: "+userId+"/ CourseId: "+courseId, Toast.LENGTH_SHORT).show();
-
+        Intent i = getIntent();
+        userId = i.getIntExtra("user_id", -1);
+        courseId = i.getIntExtra("course_id", -1);
 
         viewModel = new ViewModelProvider(this).get(CourseHubViewModel.class);
         Courses course = viewModel.getCourseById(courseId);
@@ -64,10 +63,6 @@ public class ShowCourseActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (course != null) {
                     Enrollments enrollment = new Enrollments(userId,courseId,new Date());
-//                    enrollment.setUser_id(userId);
-//                    enrollment.setCourse_id(courseId);
-//                    enrollment.setEnrollment_date(new Date());
-
                     new Thread(() -> {
                         viewModel.insertEnrollment(enrollment);
                         runOnUiThread(() -> Toast.makeText(getBaseContext(), "Course Enrolled Successfully!", Toast.LENGTH_SHORT).show());

@@ -65,14 +65,13 @@ public class MyCoursesFragment extends Fragment {
         viewModel = new ViewModelProvider(this).get(CourseHubViewModel.class);
 
             viewModel.getEnrolledCourses(userId).observe(getViewLifecycleOwner(), courses -> {
-                Toast.makeText(getActivity(), "Length of list= "+courses.size(), Toast.LENGTH_SHORT).show();
                 adapter = new CourseAdapter(courses, new OnCourseClickListener() {
                     @Override
                     public void onCourseClick(int userId, Courses course) {
                         Toast.makeText(getActivity(), "name: "+course.getCourse_name(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         intent.putExtra("course_id", course.getCourse_id());
-                        Toast.makeText(getActivity(), "The course has been added to my courses!"+"/"+course.getCourse_name(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "The course has been added to my courses!", Toast.LENGTH_SHORT).show();
                         startActivity(intent);
                     }
                 });
