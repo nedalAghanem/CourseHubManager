@@ -1,5 +1,6 @@
 package com.example.coursehubmanager.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,6 +18,8 @@ import com.example.coursehubmanager.R;
 import com.example.coursehubmanager.database.CourseHubViewModel;
 import com.example.coursehubmanager.database.entity.Courses;
 import com.example.coursehubmanager.databinding.CourseContentItemBinding;
+import com.example.coursehubmanager.ui.adapters.CourseAdapter;
+import com.example.coursehubmanager.ui.interfaces.OnCourseClickListener;
 
 import java.util.List;
 
@@ -24,13 +27,16 @@ import java.util.List;
 public class CourseCategoryFragment extends Fragment {
 
     private static final String ARG_CATEGORY = "category";
+    private static final String ARG_USER_ID = "user_id";
     private RecyclerView recyclerView;
+    CourseAdapter adapter ;
     private CourseHubViewModel viewModel;
 
-    public static CourseCategoryFragment newInstance(String category) {
+    public static CourseCategoryFragment newInstance(String category,int userId) {
         CourseCategoryFragment fragment = new CourseCategoryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_CATEGORY, category);
+        args.putInt(ARG_USER_ID, userId);
         fragment.setArguments(args);
         return fragment;
     }
@@ -44,10 +50,21 @@ public class CourseCategoryFragment extends Fragment {
 
         viewModel = new ViewModelProvider(this).get(CourseHubViewModel.class);
         String category = getArguments().getString(ARG_CATEGORY, "all");
+        int userId = getArguments().getInt(ARG_USER_ID,-1);
 
         viewModel.getCoursesByCategory(category).observe(getViewLifecycleOwner(), courses -> {
+            if (adapter == null) {
             if (courses != null) {
-                CourseAdapter adapter = new CourseAdapter(courses);
+                adapter = new CourseAdapter(courses, new OnCourseClickListener() {
+                    @Override
+                    public void onCourseClick(int userId, Courses course) {
+                        Intent intent = new Intent(getContext(), ShowCourseActivity.class);
+                        intent.putExtra("user_id", userId);
+                        intent.putExtra("course_id", course.getCourse_id());
+                        startActivity(intent);
+                    }
+                });
+                adapter.setUserId(userId);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
                 recyclerView.setHasFixedSize(true);
@@ -55,75 +72,11 @@ public class CourseCategoryFragment extends Fragment {
             } else {
                 Log.d("GetCourses", "No Courses: ");
             }
+            } else {
+                adapter.updateCourses(courses);
+            }
         });
 
         return view;
     }
-
-
-    public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.CourseViewHolder> {
-
-        private final List<Courses> courses;
-        private int userId;
-        private OnCourseClickListener listener;
-
-        public CourseAdapter(List<Courses> courses) {
-            this.courses = courses;
-        }
-
-        @NonNull
-        @Override
-        public CourseViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.course_content_item, parent, false);
-            return new CourseViewHolder(view);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull CourseViewHolder holder, int position) {
-            Courses course = courses.get(position);
-            Log.d("GetCourses", courses.size() + "");
-            holder.bind(course);
-            holder.itemView.setOnClickListener(v -> listener.onCourseClick(userId,course));        }
-
-        @Override
-        public int getItemCount() {
-            return courses == null ? 0 : courses.size();
-        }
-
-        public void updateCourses(List<Courses> newCourses) {
-            this.courses.clear();
-            this.courses.addAll(newCourses);
-            notifyDataSetChanged();
-        }
-
-        class CourseViewHolder extends RecyclerView.ViewHolder {
-            CourseContentItemBinding binding;
-            Courses courses;
-
-            public CourseViewHolder(@NonNull View itemView) {
-                super(itemView);
-                binding = CourseContentItemBinding.bind(itemView);
-            }
-
-            public void bind(Courses courses) {
-                this.courses = courses;
-                binding.imageView.setImageResource(R.drawable.web_developer);
-                binding.courseItemTvCategory.setText(courses.getCategory());
-                binding.courseItemTvCourseName.setText(courses.getCourse_name());
-                binding.courseItemTvInstructorName.setText(courses.getInstructor_name());
-                binding.courseItemTvDate.setText(courses.getCourse_date() + "");
-                binding.courseItemTvPrice.setText(courses.getPrice() + " $ ");
-                // to show just 40 Char from the description
-                String fullText = courses.getDescription();
-                int numberOfCharacters = 40;
-                String shortenedText = fullText.substring(0, Math.min(numberOfCharacters, fullText.length()));
-                binding.courseItemTvDescription.setText(shortenedText);
-            }
-        }
     }
-    public interface OnCourseClickListener {
-        void onCourseClick(int userId, Courses course);
-    }
-
-
-}

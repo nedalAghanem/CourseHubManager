@@ -44,9 +44,8 @@ public class MainActivity extends AppCompatActivity {
                 if(item.getItemId() == R.id.item_home){
                     addFragment(HomeFragment.newInstance(userId));
                 }else if (item.getItemId() == R.id.item_my_courses){
-                    addFragment(new MyCoursesFragment());
+                    addFragment(MyCoursesFragment.newInstance(userId));
                 } else if (item.getItemId() == R.id.item_account) {
-//                    addFragment(new AccountFragment());
                     addFragment(AccountFragment.newInstance(userId));
                 }
                 return false;

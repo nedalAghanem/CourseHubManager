@@ -36,8 +36,8 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
         // Required empty public constructor
     }
-    public static AccountFragment newInstance(int userId) {
-        AccountFragment fragment = new AccountFragment();
+    public static HomeFragment newInstance(int userId) {
+        HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_USER_ID, userId);
         fragment.setArguments(args);
@@ -94,7 +94,7 @@ public class HomeFragment extends Fragment {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            return CourseCategoryFragment.newInstance(categories.get(position));
+            return CourseCategoryFragment.newInstance(categories.get(position),userId);
         }
 
         @Override

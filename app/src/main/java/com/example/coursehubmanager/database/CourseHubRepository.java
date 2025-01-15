@@ -230,6 +230,10 @@ public class CourseHubRepository {
         return enrollmentsDao.getEnrollmentById(enrollmentId);
     }
 
+    public LiveData<List<Courses>> getEnrolledCourses(int userId){
+        return enrollmentsDao.getEnrolledCourses(userId);
+    }
+
     /////*** ProgressDao ***/////
     
     public void insertProgress(Progress progress){

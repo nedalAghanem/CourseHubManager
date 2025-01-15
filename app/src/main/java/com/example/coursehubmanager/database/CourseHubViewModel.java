@@ -161,6 +161,10 @@ public class CourseHubViewModel extends AndroidViewModel {
         return courseHubRepository.getEnrollmentById(enrollmentId);
     }
 
+    public LiveData<List<Courses>> getEnrolledCourses(int userId){
+        return courseHubRepository.getEnrolledCourses(userId);
+    }
+
     /////*** ProgressDao ***/////
 
     public void insertProgress(Progress progress){

@@ -2,6 +2,8 @@ package com.example.coursehubmanager.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +15,16 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.coursehubmanager.R;
 import com.example.coursehubmanager.database.CourseHubViewModel;
 import com.example.coursehubmanager.database.entity.Courses;
+import com.example.coursehubmanager.database.entity.Enrollments;
 import com.example.coursehubmanager.databinding.ActivityShowCourseBinding;
+
+import java.util.Date;
 
 public class ShowCourseActivity extends AppCompatActivity {
     ActivityShowCourseBinding binding ;
     private CourseHubViewModel viewModel;
+    int courseId ;
+    int userId ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +32,10 @@ public class ShowCourseActivity extends AppCompatActivity {
         binding = ActivityShowCourseBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        int courseId = getIntent().getIntExtra("course_id", -1);
+        userId = getIntent().getIntExtra("user_id", -1);
+        courseId = getIntent().getIntExtra("course_id", -1);
+        Toast.makeText(this, "userId: "+userId+"/ CourseId: "+courseId, Toast.LENGTH_SHORT).show();
+
 
         viewModel = new ViewModelProvider(this).get(CourseHubViewModel.class);
         Courses course = viewModel.getCourseById(courseId);
@@ -47,6 +57,23 @@ public class ShowCourseActivity extends AppCompatActivity {
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
             finish();
+        });
+
+        binding.showCourseBtnReservation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (course != null) {
+                    Enrollments enrollment = new Enrollments(userId,courseId,new Date());
+//                    enrollment.setUser_id(userId);
+//                    enrollment.setCourse_id(courseId);
+//                    enrollment.setEnrollment_date(new Date());
+
+                    new Thread(() -> {
+                        viewModel.insertEnrollment(enrollment);
+                        runOnUiThread(() -> Toast.makeText(getBaseContext(), "Course Enrolled Successfully!", Toast.LENGTH_SHORT).show());
+                    }).start();
+                }
+            }
         });
 
     }
