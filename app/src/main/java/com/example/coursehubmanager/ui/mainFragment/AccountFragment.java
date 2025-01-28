@@ -1,5 +1,7 @@
 package com.example.coursehubmanager.ui.mainFragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -37,8 +39,15 @@ public class AccountFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            userId = getArguments().getInt(ARG_USER_ID,-1);
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
+        userId = sharedPreferences.getInt(ARG_USER_ID, -1);
+
+        if (userId == -1 && getArguments() != null) {
+            userId = getArguments().getInt(ARG_USER_ID, -1);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt(ARG_USER_ID, userId);
+            editor.apply();
         }
     }
 
@@ -59,11 +68,10 @@ public class AccountFragment extends Fragment {
         String email = viewModel.getEmailByUserId(userId);
         Users user = viewModel.returnUserByEmail(email);
 
-        // هان في تعديل لكن لتجنب NullPointerException
-        et_firstName.setText("Nedal");
-        et_lastName.setText("AbuGhanem");// user.getLast_name()
-        et_password.setText("123456789");// user.getPassword()
-        et_re_password.setText("123456789");// user.getPassword()
+        et_firstName.setText(user.getFirst_name());
+        et_lastName.setText(user.getLast_name());
+        et_password.setText(user.getPassword());
+        et_re_password.setText(user.getPassword());
 
         btn_edit.setOnClickListener(new View.OnClickListener() {
             @Override
