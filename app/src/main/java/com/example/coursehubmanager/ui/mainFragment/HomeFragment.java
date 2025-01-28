@@ -1,5 +1,7 @@
 package com.example.coursehubmanager.ui.mainFragment;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -36,6 +38,7 @@ public class HomeFragment extends Fragment {
     public HomeFragment() {
         // Required empty public constructor
     }
+
     public static HomeFragment newInstance(int userId) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
@@ -43,18 +46,26 @@ public class HomeFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            userId = getArguments().getInt(ARG_USER_ID,-1);
+
+        SharedPreferences sharedPreferences = requireContext().getSharedPreferences("AppPrefs", Context.MODE_PRIVATE);
+        userId = sharedPreferences.getInt(ARG_USER_ID, -1);
+
+        if (userId == -1 && getArguments() != null) {
+            userId = getArguments().getInt(ARG_USER_ID, -1);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt(ARG_USER_ID, userId);
+            editor.apply();
         }
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        Toast.makeText(getContext(), "user id "+userId, Toast.LENGTH_SHORT).show();
 
         tabLayout = view.findViewById(R.id.fragment_home_tab_view);
         viewPager = view.findViewById(R.id.fragment_home_view_pager);
@@ -69,11 +80,11 @@ public class HomeFragment extends Fragment {
             viewPager.setAdapter(pagerAdapter);
 
             TabLayoutMediator mediator = new TabLayoutMediator(tabLayout, viewPager, new TabLayoutMediator.TabConfigurationStrategy() {
-            @Override
-            public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
-                tab.setText(tabs.get(position));
-            }
-        });
+                @Override
+                public void onConfigureTab(@NonNull TabLayout.Tab tab, int position) {
+                    tab.setText(tabs.get(position));
+                }
+            });
             mediator.attach();
 
         });
@@ -94,7 +105,7 @@ public class HomeFragment extends Fragment {
         @NonNull
         @Override
         public Fragment createFragment(int position) {
-            return CourseCategoryFragment.newInstance(categories.get(position),userId);
+            return CourseCategoryFragment.newInstance(categories.get(position), userId);
         }
 
         @Override

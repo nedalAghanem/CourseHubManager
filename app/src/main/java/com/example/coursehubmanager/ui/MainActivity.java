@@ -1,13 +1,13 @@
 package com.example.coursehubmanager.ui;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.view.GravityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
@@ -16,13 +16,12 @@ import com.example.coursehubmanager.databinding.ActivityMainBinding;
 import com.example.coursehubmanager.ui.mainFragment.AccountFragment;
 import com.example.coursehubmanager.ui.mainFragment.HomeFragment;
 import com.example.coursehubmanager.ui.mainFragment.MyCoursesFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationBarView;
 
 public class MainActivity extends AppCompatActivity {
-    ActivityMainBinding binding ;
+    ActivityMainBinding binding;
     int userId;
-    private FragmentManager fragmentManager ;
+    private FragmentManager fragmentManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,19 +30,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
 
         Intent intent = getIntent();
-        userId = intent.getIntExtra("userId",-1);
-        Toast.makeText(this, "Id : "+userId, Toast.LENGTH_SHORT).show();
+        userId = intent.getIntExtra("userId", -1);
 
+        if (userId == -1) {
+            SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+            userId = sharedPreferences.getInt("user_id", -1);
+        }
+
+        if (userId != -1) {
+            saveUserIdToPreferences(userId);
+        }
         fragmentManager = getSupportFragmentManager();
-//        binding.homeBottomNav.setSelectedItemId(R.id.item_home);
-        addFragment(new HomeFragment());
+        addFragment(HomeFragment.newInstance(userId));
 
         binding.homeBottomNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                if(item.getItemId() == R.id.item_home){
+                if (item.getItemId() == R.id.item_home) {
                     addFragment(HomeFragment.newInstance(userId));
-                }else if (item.getItemId() == R.id.item_my_courses){
+                } else if (item.getItemId() == R.id.item_my_courses) {
                     addFragment(MyCoursesFragment.newInstance(userId));
                 } else if (item.getItemId() == R.id.item_account) {
                     addFragment(AccountFragment.newInstance(userId));
@@ -51,9 +56,15 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+    }
 
+    private void saveUserIdToPreferences(int userId) {
+        SharedPreferences sharedPreferences = getSharedPreferences("AppPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("user_id", userId);
+        editor.apply();
     }
     private void addFragment(Fragment fragment){
-        fragmentManager.beginTransaction().add(R.id.home_container,fragment).commit();
+        fragmentManager.beginTransaction().replace(R.id.home_container,fragment).commit();
     }
 }
