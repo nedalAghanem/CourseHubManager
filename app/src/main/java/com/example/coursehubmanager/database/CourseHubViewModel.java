@@ -123,7 +123,9 @@ public class CourseHubViewModel extends AndroidViewModel {
         return courseHubRepository.getLessonById(lessonId);
     }
 
-
+    public LiveData<List<Lessons>> getLessonByCourseId(int courseId){
+        return courseHubRepository.getLessonsByCourseId(courseId);
+    }
 
     /////*** BookmarksDao ***/////
 

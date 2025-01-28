@@ -174,6 +174,10 @@ public class CourseHubRepository {
         return lessonsDao.getLessonById(lessonId);
     }
 
+    public LiveData<List<Lessons>> getLessonsByCourseId(int courseId){
+        return lessonsDao.getLessonsByCourseId(courseId);
+    }
+
     /////*** BookmarksDao ***/////
 
     public void insertBookmark(Bookmarks bookmark){

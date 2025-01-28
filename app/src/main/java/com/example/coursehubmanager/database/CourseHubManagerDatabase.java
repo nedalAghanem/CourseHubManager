@@ -29,7 +29,7 @@ import java.util.concurrent.Executors;
 
 
 @Database(entities = {Users.class, Courses.class, Lessons.class, Bookmarks.class, Enrollments.class, Progress.class},
-        version = 8, exportSchema = false)
+        version = 10, exportSchema = false)
 public abstract class CourseHubManagerDatabase extends RoomDatabase {
 
     public abstract UsersDao usersDao();

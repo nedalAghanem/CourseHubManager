@@ -2,6 +2,8 @@ package com.example.coursehubmanager.ui;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.View;
 import android.widget.Toast;
 
@@ -58,6 +60,7 @@ public class ShowCourseActivity extends AppCompatActivity {
             finish();
         });
 
+        Handler handler = new Handler(Looper.getMainLooper());
         binding.showCourseBtnReservation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,7 +68,16 @@ public class ShowCourseActivity extends AppCompatActivity {
                     Enrollments enrollment = new Enrollments(userId,courseId,new Date());
                     new Thread(() -> {
                         viewModel.insertEnrollment(enrollment);
-                        runOnUiThread(() -> Toast.makeText(getBaseContext(), "Course Enrolled Successfully!", Toast.LENGTH_SHORT).show());
+//                        runOnUiThread(() -> Toast.makeText(getBaseContext(), "Course Enrolled Successfully!", Toast.LENGTH_SHORT).show());
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getBaseContext(), "Course Enrolled Successfully!", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getBaseContext(), LessonsActivity.class);
+                                intent.putExtra("course_id", courseId);
+                                startActivity(intent);
+                            }
+                        });
                     }).start();
                 }
             }
