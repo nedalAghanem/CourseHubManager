@@ -5,9 +5,11 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.InputType;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import com.example.coursehubmanager.database.entity.Users;
 import com.example.coursehubmanager.databinding.ActivityLoginBinding;
 import com.example.coursehubmanager.ui.MainActivity;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 public class LoginActivity extends AppCompatActivity {
     ActivityLoginBinding binding ;
@@ -86,33 +89,20 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
 
-//        Drawable eyeIcon = binding.loginEtPassword.getCompoundDrawablesRelative()[2];
-//
-//        binding.loginEtPassword.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (event.getAction() == MotionEvent.ACTION_UP) {
-//                    int x = (int) event.getX();
-//                    // التحقق إذا كان الضغط على الأيقونة
-//                    if (x >= (binding.loginEtPassword.getWidth() - eyeIcon.getBounds().width())) {
-//                        if (binding.loginEtPassword.getInputType() == InputType.TYPE_TEXT_VARIATION_PASSWORD) {
-//                            // إظهار كلمة المرور وتغيير الأيقونة
-//                            binding.loginEtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-//                            eyeIcon.setDrawable(R.drawable.ic_visibility_on); // تغيير الأيقونة إلى العين المفتوحة
-//                        } else {
-//                            // إخفاء كلمة المرور وتغيير الأيقونة
-//                            binding.loginEtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-//                                eyeIcon.setDrawable(R.drawable.ic_visibility_off); // تغيير الأيقونة إلى العين المغلقة
-//                        }
-//                        binding.loginEtPassword.setSelection(binding.loginEtPassword.getText().length());
-//                        return true;
-//                    }
-//                }
-//                return false;
-//            }
-//        });
+        final boolean[] isPasswordVisible = {false};
+        binding.loginTextInputLayoutPassword.setEndIconDrawable(R.drawable.ic_visibility_off);
 
-
+        binding.loginTextInputLayoutPassword.setEndIconOnClickListener(v -> {
+            if (isPasswordVisible[0]) {
+                binding.loginEtPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                binding.loginTextInputLayoutPassword.setEndIconDrawable(R.drawable.ic_visibility_off);
+            } else {
+                binding.loginEtPassword.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                binding.loginTextInputLayoutPassword.setEndIconDrawable(R.drawable.ic_visibility_on);
+            }
+            binding.loginEtPassword.setSelection(binding.loginEtPassword.getText().length());
+            isPasswordVisible[0] = !isPasswordVisible[0];
+        });
 
 
     }
